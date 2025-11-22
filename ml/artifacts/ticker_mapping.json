@@ -1,0 +1,82 @@
+{
+  "AAPL": {
+    "full_ticker": "AAPL",
+    "name": "Apple Inc.",
+    "latest_price": 266.25
+  },
+  "GOOGL": {
+    "full_ticker": "GOOGL",
+    "name": "Alphabet Inc.",
+    "latest_price": 289.45001220703125
+  },
+  "MSFT": {
+    "full_ticker": "MSFT",
+    "name": "Microsoft Corporation",
+    "latest_price": 478.42999267578125
+  },
+  "TSLA": {
+    "full_ticker": "TSLA",
+    "name": "Tesla Inc.",
+    "latest_price": 395.2300109863281
+  },
+  "AMZN": {
+    "full_ticker": "AMZN",
+    "name": "Amazon.com Inc.",
+    "latest_price": 217.13999938964844
+  },
+  "META": {
+    "full_ticker": "META",
+    "name": "Meta Platforms Inc.",
+    "latest_price": 589.1500244140625
+  },
+  "NVDA": {
+    "full_ticker": "NVDA",
+    "name": "NVIDIA Corporation",
+    "latest_price": 180.63999938964844
+  },
+  "SPY": {
+    "full_ticker": "SPY",
+    "name": "SPDR S&P 500 ETF",
+    "latest_price": 652.530029296875
+  },
+  "RELIANCE": {
+    "full_ticker": "RELIANCE.NS",
+    "name": "Reliance Industries Limited",
+    "latest_price": 1549.0999755859375
+  },
+  "TCS": {
+    "full_ticker": "TCS.NS",
+    "name": "Tata Consultancy Services Limited",
+    "latest_price": 3144.800048828125
+  },
+  "INFY": {
+    "full_ticker": "INFY.NS",
+    "name": "Infosys Limited",
+    "latest_price": 1536.5
+  },
+  "HDFCBANK": {
+    "full_ticker": "HDFCBANK.NS",
+    "name": "HDFC Bank Limited",
+    "latest_price": 1008.8499755859375
+  },
+  "ICICIBANK": {
+    "full_ticker": "ICICIBANK.NS",
+    "name": "ICICI Bank Limited",
+    "latest_price": 1383.0
+  },
+  "SBIN": {
+    "full_ticker": "SBIN.NS",
+    "name": "State Bank of India",
+    "latest_price": 981.5499877929688
+  },
+  "ITC": {
+    "full_ticker": "ITC.NS",
+    "name": "ITC Limited",
+    "latest_price": 405.45001220703125
+  },
+  "BHARTIARTL": {
+    "full_ticker": "BHARTIARTL.NS",
+    "name": "Bharti Airtel Limited",
+    "latest_price": 2158.300048828125
+  }
+}

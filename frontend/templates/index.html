@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading Platform - Powered by ML</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🤖 AI Trader</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#dashboard" class="nav-link active">Dashboard</a>
+                    <a href="#stocks" class="nav-link">Stocks</a>
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <a href="#transactions" class="nav-link">Transactions</a>
+                </nav>
+                <div class="user-info">
+                    <span class="user-name">Demo User</span>
+                    <span class="portfolio-value" id="totalPortfolioValue">$10,000.00</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="dashboard-grid">
+                    <!-- Portfolio Summary Card -->
+                    <div class="card portfolio-summary">
+                        <h2>Portfolio Summary</h2>
+                        <div class="portfolio-stats">
+                            <div class="stat">
+                                <span class="stat-label">Total Value</span>
+                                <span class="stat-value" id="dashTotalValue">$10,000.00</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Cash Balance</span>
+                                <span class="stat-value cash" id="dashCashBalance">$10,000.00</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Invested</span>
+                                <span class="stat-value" id="dashInvested">$0.00</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Total P&L</span>
+                                <span class="stat-value profit" id="dashProfitLoss">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Holdings Card -->
+                    <div class="card holdings-card">
+                        <h2>Your Holdings</h2>
+                        <div id="holdingsList" class="holdings-list">
+                            <div class="empty-state">
+                                <p>No holdings yet. Start trading to build your portfolio!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ML Insights Card -->
+                    <div class="card ml-insights">
+                        <h2>AI Recommendations</h2>
+                        <div id="mlInsights" class="insights-list">
+                            <div class="loading">Loading AI insights...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stocks Section -->
+            <section id="stocks" class="section">
+                <div class="section-header">
+                    <h2>All Stocks</h2>
+                    <div class="search-box">
+                        <input type="text" id="stockSearch" placeholder="Search stocks...">
+                    </div>
+                </div>
+
+                <div class="stocks-grid" id="stocksGrid">
+                    <!-- Stock cards will be dynamically inserted here -->
+                    <div class="loading-spinner">Loading stocks...</div>
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section id="portfolio" class="section">
+                <h2>Portfolio Details</h2>
+                <div class="portfolio-details">
+                    <div class="card">
+                        <h3>Holdings</h3>
+                        <table class="holdings-table">
+                            <thead>
+                                <tr>
+                                    <th>Stock</th>
+                                    <th>Quantity</th>
+                                    <th>Avg. Price</th>
+                                    <th>Current Price</th>
+                                    <th>Current Value</th>
+                                    <th>P&L</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="portfolioHoldingsTable">
+                                <tr>
+                                    <td colspan="7" class="empty-state">No holdings</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section id="transactions" class="section">
+                <h2>Transaction History</h2>
+                <div class="card">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Stock</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTable">
+                            <tr>
+                                <td colspan="6" class="empty-state">No transactions yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Buy/Sell Modal -->
+    <div id="tradeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Trade Stock</h3>
+                <button class="close-btn" onclick="closeTradeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stock-info">
+                    <h4 id="modalStockName">Stock Name</h4>
+                    <p class="stock-ticker" id="modalStockTicker">TICKER</p>
+                    <p class="stock-price">
+                        Current Price: <span id="modalStockPrice">$0.00</span>
+                    </p>
+                </div>
+
+                <!-- ML Prediction Display -->
+                <div class="ml-prediction" id="modalMlPrediction">
+                    <div class="prediction-header">
+                        <span>AI Prediction</span>
+                        <span class="signal" id="modalSignal">Loading...</span>
+                    </div>
+                    <div class="confidence">
+                        Confidence: <span id="modalConfidence">--</span>
+                    </div>
+                    <div class="probabilities">
+                        <div class="prob-bar">
+                            <span>Buy</span>
+                            <div class="bar">
+                                <div class="fill buy-fill" id="buyProb" style="width: 0%"></div>
+                            </div>
+                            <span id="buyProbText">0%</span>
+                        </div>
+                        <div class="prob-bar">
+                            <span>Hold</span>
+                            <div class="bar">
+                                <div class="fill hold-fill" id="holdProb" style="width: 0%"></div>
+                            </div>
+                            <span id="holdProbText">0%</span>
+                        </div>
+                        <div class="prob-bar">
+                            <span>Sell</span>
+                            <div class="bar">
+                                <div class="fill sell-fill" id="sellProb" style="width: 0%"></div>
+                            </div>
+                            <span id="sellProbText">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Trade Analysis -->
+                <div class="trade-analysis" id="tradeAnalysis" style="display:none; margin-top: 16px; padding: 16px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 12px; display: flex; justify-content: space-between;">
+                        <span>Trade Analysis</span>
+                        <span id="tradeRating" style="color: var(--primary);"></span>
+                    </div>
+                    <div id="tradeInsights" style="font-size: 13px; color: var(--text-secondary);"></div>
+                    <div id="tradeOpportunity" style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; font-size: 13px;"></div>
+                </div>
+
+                <div class="trade-form">
+                    <div class="form-group">
+                        <label>Action</label>
+                        <div class="action-buttons">
+                            <button class="action-btn buy-btn active" data-action="buy" onclick="setTradeAction('buy')">
+                                Buy
+                            </button>
+                            <button class="action-btn sell-btn" data-action="sell" onclick="setTradeAction('sell')">
+                                Sell
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" min="1" value="1" onchange="updateTotal()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total Amount</label>
+                        <p class="total-amount" id="totalAmount">$0.00</p>
+                    </div>
+
+                    <div class="available-balance">
+                        <span>Available: <span id="availableBalance">$0.00</span></span>
+                    </div>
+
+                    <button class="submit-btn" id="submitTradeBtn" onclick="executeTrade()">
+                        Place Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
