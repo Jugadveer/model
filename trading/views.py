@@ -295,21 +295,22 @@ class PortfolioViewSet(viewsets.ModelViewSet):
                 price=stock.current_price,
                 total_amount=total_cost
             )
-            
-            # Generate post-trade insights
-            insights_data = None
-            if post_trade_insights:
-                try:
-                    insights_data = post_trade_insights.analyze_buy_decision(
-                        stock.ticker,
-                        float(stock.current_price),
-                        transaction_obj.timestamp,
-                        quantity
-                    )
-                except Exception as e:
-                    print(f"Error generating buy insights: {e}")
-                    import traceback
-                    traceback.print_exc()
+
+        # Generate post-trade insights (outside transaction to avoid blocking)
+        insights_data = None
+        if post_trade_insights:
+            try:
+                insights_data = post_trade_insights.analyze_buy_decision(
+                    stock.ticker,
+                    float(stock.current_price),
+                    transaction_obj.timestamp,
+                    quantity
+                )
+            except Exception as e:
+                print(f"Error generating buy insights: {e}")
+                import traceback
+                traceback.print_exc()
+                # Don't fail the request if insights fail
 
         response_data = {
             'message': 'Purchase successful',
@@ -357,21 +358,22 @@ class PortfolioViewSet(viewsets.ModelViewSet):
                 price=stock.current_price,
                 total_amount=total_proceeds
             )
-            
-            # Generate post-trade insights
-            insights_data = None
-            if post_trade_insights:
-                try:
-                    insights_data = post_trade_insights.analyze_sell_decision(
-                        stock.ticker,
-                        float(stock.current_price),
-                        transaction_obj.timestamp,
-                        quantity
-                    )
-                except Exception as e:
-                    print(f"Error generating sell insights: {e}")
-                    import traceback
-                    traceback.print_exc()
+
+        # Generate post-trade insights (outside transaction to avoid blocking)
+        insights_data = None
+        if post_trade_insights:
+            try:
+                insights_data = post_trade_insights.analyze_sell_decision(
+                    stock.ticker,
+                    float(stock.current_price),
+                    transaction_obj.timestamp,
+                    quantity
+                )
+            except Exception as e:
+                print(f"Error generating sell insights: {e}")
+                import traceback
+                traceback.print_exc()
+                # Don't fail the request if insights fail
 
         response_data = {
             'message': 'Sale successful',
